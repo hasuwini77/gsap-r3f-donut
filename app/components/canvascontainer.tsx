@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { Donut } from "./Donut";
-import { OrbitControls } from "@react-three/drei";
+import { Environment, OrbitControls } from "@react-three/drei";
 
 const CanvasContainer = () => {
   return (
@@ -12,6 +12,7 @@ const CanvasContainer = () => {
       <OrbitControls />
       <ambientLight intensity={7} />
       <Donut position={[0, 0, 0]} />
+      <Environment preset="forest" />
     </Canvas>
   );
 };

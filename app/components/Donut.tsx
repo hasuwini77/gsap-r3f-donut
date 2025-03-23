@@ -6,11 +6,23 @@ Command: npx gltfjsx@6.5.3 donut-1.glb --draco
 
 import { useGLTF } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
+import gsap from "gsap";
+import { useLayoutEffect } from "react";
 
 export function Donut(props) {
   const { nodes, materials } = useGLTF("/3dModel/donut-1.glb");
   const { camera } = useThree();
-  console.log(camera.position);
+  const tl = gsap.timeline();
+
+  useLayoutEffect(() => {
+    tl.to(camera.position, {
+      duration: 2,
+      x: 0.4719430797797844,
+      y: 4.149772533246484,
+      z: 2.748937549629132,
+    });
+  }, []);
+
   return (
     <group
       {...props}
