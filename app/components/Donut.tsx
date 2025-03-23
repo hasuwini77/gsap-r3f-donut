@@ -79,7 +79,7 @@ export function Donut(props) {
         scene.position,
         {
           x: -0.05,
-          y: 0.05,
+          y: -1.05,
           z: 0,
         },
         "<"
