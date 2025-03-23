@@ -5,22 +5,151 @@ Command: npx gltfjsx@6.5.3 donut-1.glb --draco
 */
 
 import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import gsap from "gsap";
 import { useLayoutEffect } from "react";
+import { useControls } from "leva";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
 
 export function Donut(props) {
   const { nodes, materials } = useGLTF("/3dModel/donut-1.glb");
-  const { camera } = useThree();
+  const { camera, scene } = useThree();
   const tl = gsap.timeline();
 
+  // // POSITION CAMERA AND SCENE CONTROL
+  // const { cameraPosition, scenePosition, sceneRotation } = useControls({
+  //   cameraPosition: {
+  //   { x: 6.5, y: 1.8, z: 3.95 },
+  //     step: 0.05,
+  //   },
+  //   scenePosition: {
+  //     value: { x: -0.05, y: 0.05, z: 0.0 },
+  //     step: 0.05,
+  //   },
+  //   sceneRotation: {
+  //     value:{ x: 0.65, y: -6.55, z: -0.3 },
+  //     step: 0.05,
+  //   },
+  // });
+
+  // useFrame(() => {
+  //   camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+  //   scene.position.set(scenePosition.x, scenePosition.y, scenePosition.z);
+  //   scene.rotation.set(sceneRotation.x, sceneRotation.y, sceneRotation.z);
+  // });
+
+  const firstPosition = {
+    cameraPosition: {
+      value: { x: 6.5, y: 1.8, z: 3.95 },
+      step: 0.05,
+    },
+    scenePosition: {
+      value: { x: -0.05, y: 0.05, z: 0.0 },
+      step: 0.05,
+    },
+    sceneRotation: {
+      value: { x: 0.65, y: -6.55, z: -0.3 },
+      step: 0.05,
+    },
+  };
+
+  const secondPosition = {
+    cameraPosition: {
+      value: { x: 2.7, y: 1.8, z: 3.95 },
+      step: 0.05,
+    },
+    scenePosition: {
+      value: { x: -0.05, y: -0.35, z: 0.0 },
+      step: 0.05,
+    },
+    sceneRotation: {
+      value: { x: 0.6, y: -6.7, z: -6.35 },
+      step: 0.05,
+    },
+  };
+
   useLayoutEffect(() => {
+    new ScrollTrigger({});
+
+    // Section Two Animation (First Position)
     tl.to(camera.position, {
-      duration: 2,
-      x: 0.4719430797797844,
-      y: 4.149772533246484,
-      z: 2.748937549629132,
-    });
+      x: 6.5,
+      y: 1.8,
+      z: 3.95,
+      scrollTrigger: {
+        trigger: ".sectionTwo",
+        start: "top bottom",
+        end: "top top",
+        scrub: true,
+        immediateRender: false,
+        markers: true,
+      },
+    })
+      .to(scene.position, {
+        x: -0.05,
+        y: 0.05,
+        z: 0,
+        scrollTrigger: {
+          trigger: ".sectionTwo",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+          immediateRender: false,
+          markers: true,
+        },
+      })
+      .to(scene.rotation, {
+        x: 0.65,
+        y: -6.55,
+        z: -0.3,
+        scrollTrigger: {
+          trigger: ".sectionTwo",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+          immediateRender: false,
+          markers: true,
+        },
+      })
+      .to(camera.position, {
+        x: 2.7,
+        y: 1.8,
+        z: 3.95,
+        scrollTrigger: {
+          trigger: ".sectionThree",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+          immediateRender: false,
+          markers: true,
+        },
+      })
+      .to(scene.position, {
+        x: -0.05,
+        y: -0.35,
+        z: 0.0,
+        scrollTrigger: {
+          trigger: ".sectionThree",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+          immediateRender: false,
+          markers: true,
+        },
+      })
+      .to(scene.rotation, {
+        x: 0.6,
+        y: -6.7,
+        z: -6.35,
+        scrollTrigger: {
+          trigger: ".sectionThree",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+          immediateRender: false,
+          markers: true,
+        },
+      });
   }, []);
 
   return (

@@ -1,12 +1,13 @@
 import { Canvas } from "@react-three/fiber";
 import { Donut } from "./Donut";
 import { Environment, OrbitControls } from "@react-three/drei";
+gsap.registerPlugin(ScrollTrigger);
 
 const CanvasContainer = () => {
   return (
     <Canvas
       camera={{
-        position: [0.4719430797797844, 4.149772533246484, 2.748937549629132],
+        position: [2, 2.2, 3.95],
       }}
     >
       {/* <OrbitControls /> */}
