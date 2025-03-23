@@ -1,11 +1,17 @@
 import { Canvas } from "@react-three/fiber";
-import { Donut } from "./donut";
+import { Donut } from "./Donut";
+import { OrbitControls } from "@react-three/drei";
 
 const CanvasContainer = () => {
   return (
-    <Canvas>
-      <ambientLight />
-      <Donut />
+    <Canvas
+      camera={{
+        position: [0.4719430797797844, 4.149772533246484, 2.748937549629132],
+      }}
+    >
+      <OrbitControls />
+      <ambientLight intensity={7} />
+      <Donut position={[0, 0, 0]} />
     </Canvas>
   );
 };

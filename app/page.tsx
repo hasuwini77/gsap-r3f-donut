@@ -1,9 +1,10 @@
 "use client";
-import CanvasContainer from "./components/canvascontainer";
+
+import CanvasContainer from "./components/CanvasContainer";
 
 export default function Home() {
   return (
-    <div>
+    <div className="bg-white h-screen w-full">
       <CanvasContainer />
     </div>
   );
