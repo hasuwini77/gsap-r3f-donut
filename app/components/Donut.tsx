@@ -38,118 +38,87 @@ export function Donut(props) {
   //   scene.rotation.set(sceneRotation.x, sceneRotation.y, sceneRotation.z);
   // });
 
-  const firstPosition = {
-    cameraPosition: {
-      value: { x: 6.5, y: 1.8, z: 3.95 },
-      step: 0.05,
-    },
-    scenePosition: {
-      value: { x: -0.05, y: 0.05, z: 0.0 },
-      step: 0.05,
-    },
-    sceneRotation: {
-      value: { x: 0.65, y: -6.55, z: -0.3 },
-      step: 0.05,
-    },
-  };
-
-  const secondPosition = {
-    cameraPosition: {
-      value: { x: 2.7, y: 1.8, z: 3.95 },
-      step: 0.05,
-    },
-    scenePosition: {
-      value: { x: -0.05, y: -0.35, z: 0.0 },
-      step: 0.05,
-    },
-    sceneRotation: {
-      value: { x: 0.6, y: -6.7, z: -6.35 },
-      step: 0.05,
-    },
-  };
-
   useLayoutEffect(() => {
-    new ScrollTrigger({});
+    // Clear any existing ScrollTriggers to prevent conflicts
+    ScrollTrigger.getAll().forEach((st) => st.kill());
 
-    // Section Two Animation (First Position)
-    tl.to(camera.position, {
-      x: 6.5,
-      y: 1.8,
-      z: 3.95,
+    // Create separate timelines for better control
+    const tlSectionTwo = gsap.timeline({
       scrollTrigger: {
         trigger: ".sectionTwo",
         start: "top bottom",
         end: "top top",
         scrub: true,
-        immediateRender: false,
         markers: true,
       },
-    })
-      .to(scene.position, {
-        x: -0.05,
-        y: 0.05,
-        z: 0,
-        scrollTrigger: {
-          trigger: ".sectionTwo",
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-          immediateRender: false,
-          markers: true,
-        },
+    });
+
+    const tlSectionThree = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".sectionThree",
+        start: "top bottom",
+        end: "top top",
+        scrub: true,
+        markers: true,
+      },
+    });
+
+    // Set initial state first (very important)
+    gsap.set(camera.position, { x: 2, y: 2.2, z: 3.95 });
+    gsap.set(scene.position, { x: 0, y: 0, z: 0 });
+    gsap.set(scene.rotation, { x: 0, y: 0, z: 0 });
+
+    // Section Two animations grouped in one timeline
+    tlSectionTwo
+      .to(camera.position, {
+        x: 6.5,
+        y: 1.8,
+        z: 3.95,
       })
-      .to(scene.rotation, {
-        x: 0.65,
-        y: -6.55,
-        z: -0.3,
-        scrollTrigger: {
-          trigger: ".sectionTwo",
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-          immediateRender: false,
-          markers: true,
+      .to(
+        scene.position,
+        {
+          x: -0.05,
+          y: 0.05,
+          z: 0,
         },
-      })
+        "<"
+      ) // The "<" makes this animation start at the same time as the previous one
+      .to(
+        scene.rotation,
+        {
+          x: 0.65,
+          y: -6.55,
+          z: -0.3,
+        },
+        "<"
+      );
+
+    // Section Three animations in a separate timeline
+    tlSectionThree
       .to(camera.position, {
         x: 2.7,
         y: 1.8,
         z: 3.95,
-        scrollTrigger: {
-          trigger: ".sectionThree",
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-          immediateRender: false,
-          markers: true,
-        },
       })
-      .to(scene.position, {
-        x: -0.05,
-        y: -0.35,
-        z: 0.0,
-        scrollTrigger: {
-          trigger: ".sectionThree",
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-          immediateRender: false,
-          markers: true,
+      .to(
+        scene.position,
+        {
+          x: -0.05,
+          y: -0.35,
+          z: 0.0,
         },
-      })
-      .to(scene.rotation, {
-        x: 0.6,
-        y: -6.7,
-        z: -6.35,
-        scrollTrigger: {
-          trigger: ".sectionThree",
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-          immediateRender: false,
-          markers: true,
+        "<"
+      )
+      .to(
+        scene.rotation,
+        {
+          x: 0.6,
+          y: -6.7,
+          z: -6.35,
         },
-      });
+        "<"
+      );
   }, []);
 
   return (
