@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { Donut } from "./Donut";
-import { Environment, OrbitControls } from "@react-three/drei";
+import { Environment } from "@react-three/drei";
 
 const CanvasContainer = () => {
   return (
