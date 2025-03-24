@@ -8,7 +8,6 @@ import { useGLTF } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import gsap from "gsap";
 import { useLayoutEffect } from "react";
-import { useControls } from "leva";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 
 export function Donut(props) {
