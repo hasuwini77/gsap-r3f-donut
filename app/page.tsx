@@ -1,6 +1,6 @@
 "use client";
 
-import CanvasContainer from "./components/CanvasContainer";
+import CanvasContainer from "./components/CanvasContainer2";
 import { SectionOne } from "./components/SectionOne";
 import { SectionThree } from "./components/SectionThree";
 import { SectionTwo } from "./components/SectionTwo";
