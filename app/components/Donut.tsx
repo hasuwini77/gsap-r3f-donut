@@ -12,6 +12,7 @@ import { useControls } from "leva";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 
 export function Donut(props) {
+  gsap.registerPlugin(ScrollTrigger);
   const { nodes, materials } = useGLTF("/3dModel/donut-1.glb");
   const { camera, scene } = useThree();
   const tl = gsap.timeline();
@@ -70,11 +71,15 @@ export function Donut(props) {
 
     // Section Two animations grouped in one timeline
     tlSectionTwo
-      .to(camera.position, {
-        x: 6.5,
-        y: 1.8,
-        z: 3.95,
-      })
+      .to(
+        camera.position,
+        {
+          x: 6.5,
+          y: 1.8,
+          z: 3.95,
+        },
+        "<"
+      )
       .to(
         scene.position,
         {
@@ -96,11 +101,15 @@ export function Donut(props) {
 
     // Section Three animations in a separate timeline
     tlSectionThree
-      .to(camera.position, {
-        x: 2.7,
-        y: 1.8,
-        z: 3.95,
-      })
+      .to(
+        camera.position,
+        {
+          x: 2.7,
+          y: 1.8,
+          z: 3.95,
+        },
+        "<"
+      )
       .to(
         scene.position,
         {
